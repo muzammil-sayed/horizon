@@ -1,0 +1,1 @@
+../../../shared_templates/datateam/common/run_horizon.sh

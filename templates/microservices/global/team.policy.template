@@ -1,0 +1,203 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "support:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "trustedadvisor:Describe*",
+      "Resource": "*"
+    },
+    {
+      "Action": "ec2:Describe*",
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Action": "ec2:*",
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": {
+        "StringLike": {
+          "ec2:ResourceTag/name": "${resource_prefix}*"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "elasticloadbalancing:DescribeLoadBalancers",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "elasticloadbalancing:*",
+      "Resource": "arn:aws:elasticloadbalancing:*:*:loadbalancer/${resource_prefix}*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "autoscaling:Describe*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "autoscaling:*",
+      "Resource": [
+        "arn:aws:autoscaling:*:*:scalingPolicy:*:autoScalingGroupName/${resource_prefix}*:policyname/*",
+        "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/${resource_prefix}*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:ListTables",
+        "dynamodb:DescribeTable"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "dynamodb:*",
+      "Resource": "arn:aws:dynamodb:*:*:table/${resource_prefix}*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListAllMyBuckets",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::${resource_prefix}*",
+        "arn:aws:s3:::${resource_prefix}*/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kinesis:ListStreams",
+        "firehose:ListDeliveryStreams",
+        "kinesisanalytics:ListApplications"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "kinesis:*",
+      "Resource": "arn:aws:kinesis:*:*:stream/${resource_prefix}*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "firehose:*",
+      "Resource": "arn:aws:kinesis:*:*:deliverystream/${resource_prefix}*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ListQueues",
+        "sqs:GetQueueAttributes"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "sqs:*",
+      "Resource": "arn:aws:sqs:*:*:${resource_prefix}*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sns:ListPlatformApplications",
+        "sns:ListSubscriptions",
+        "sns:ListTopics"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "sns:*",
+      "Resource": "arn:aws:sns:*:*:${resource_prefix}*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "rds:*",
+      "Resource": [
+		"arn:aws:rds:*:*:db:${resource_prefix}*",
+		"arn:aws:rds:*:*:cluster:${resource_prefix}*",
+		"arn:aws:rds:*:*:snapshot:${resource_prefix}*",
+		"arn:aws:rds:*:*:cluster-snapshot:${resource_prefix}*",
+		"arn:aws:rds:*:*:subgrp:${resource_prefix}*"
+	  ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rds:CreateDBInstance",
+        "rds:RestoreDBInstanceFromDBSnapshot",
+        "rds:RestoreDBClusterFromDBSnapshot"
+      ],
+      "Resource": [
+        "arn:aws:rds:*:*:og:default:*",
+        "arn:aws:rds:*:*:pg:default*",
+        "arn:aws:rds:*:*:cluster-pg:default*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rds:DescribeAccountAttributes",
+        "rds:DescribeCertificates",
+        "rds:DescribeDBInstances",
+        "rds:DescribeDBEngineVersions",
+        "rds:DescribeDBSecurityGroups",
+        "rds:DescribeDBSubnetGroups",
+        "rds:DescribeDBParameterGroups",
+        "rds:DescribeDBParameters",
+        "rds:DescribeEvents",
+        "rds:DescribeEventCategories",
+        "rds:DescribeEventSubscriptions",
+        "rds:DescribeOptionGroups",
+        "rds:DescribeOptionGroupOptions",
+        "rds:DescribeOrderableDBInstanceOptions",
+        "rds:DescribeDBSnapshots",
+        "rds:DescribeDBSnapshotAttributes",
+        "rds:DescribeDBClusters",
+        "rds:DescribeDBClusterSnapshots",
+        "rds:DescribeDBClusterSnapshotAttributes",
+        "rds:DescribeDBClusterParameters",
+        "rds:DescribeDBClusterParameterGroups"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Describe*",
+        "kms:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:describe*",
+        "cloudwatch:get*",
+        "cloudwatch:list*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:Get*",
+        "route53:List*",
+        "route53domains:Get*",
+        "route53domains:List*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

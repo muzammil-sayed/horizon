@@ -1,0 +1,28 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "NotAction": [
+              "iam:*",
+              "kms:*",
+              "s3:Get*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::*etcd*",
+                "arn:aws:s3:::*etcd*/*",
+                "arn:aws:s3:::*lemur*",
+                "arn:aws:s3:::*lemur*/*",
+                "arn:aws:s3:::*master*",
+                "arn:aws:s3:::*master*/*",
+                "arn:aws:s3:::*node*",
+                "arn:aws:s3:::*node*/*"
+            ]
+        }
+    ]
+}

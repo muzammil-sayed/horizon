@@ -1,0 +1,3 @@
+aws_iam_instance_profile.boomi-node:
+    attribute: "id"
+    description: "ID for shared boomi-node role"

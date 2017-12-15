@@ -1,0 +1,23 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:*AccessKey*",
+        "iam:*LoginProfile"
+      ],
+      "Resource": "arn:aws:iam::236799202671:user/${aws:username}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:ListAccount*",
+        "iam:GetAccountSummary",
+        "iam:GetAccountPasswordPolicy",
+        "iam:ListUsers"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

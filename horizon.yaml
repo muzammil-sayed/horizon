@@ -1,0 +1,31 @@
+aws_subnet.natdc:
+    attribute: "id"
+    description: "map of NATDC subnet Ids"
+
+aws_subnet.private:
+    attribute: "id"
+    description: "map of private subnet Ids"
+
+aws_subnet.public:
+    attribute: "id"
+    description: "map of public subnet Ids"
+
+aws_vpc.main:
+    attribute: "id"
+    description: "ID for the main VPC created for the environment"
+
+aws_security_group.env_instance:
+    attribute: "id"
+    description: "ID for the security group that all instances with the VPC are members of"
+
+aws_route_table.public:
+    attribute: "id"
+    description: "ID for the public routing table"
+
+aws_route_table.natdc:
+    attribute: "id"
+    description: "ID for the natdc routing table"
+
+aws_route_table.private:
+    attribute: "id"
+    description: "ID for the private routing table"

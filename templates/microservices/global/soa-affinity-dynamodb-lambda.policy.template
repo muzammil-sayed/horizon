@@ -1,0 +1,43 @@
+{
+  "Statement": [
+    {
+      "Action": "lambda:InvokeFunction",
+      "Effect": "Allow",
+      "Resource": "arn:aws:lambda:*:${account}:function:*"
+    },
+    {
+      "Action": [
+        "dynamodb:DescribeStream",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:ListStreams"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:dynamodb:*:${account}:table/*/stream/*"
+    },
+    {
+      "Action": [
+        "dynamodb:DeleteItem",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:dynamodb:*:${account}:table/*",
+      "Sid": "DynamoDBAffinityDomains"
+    },
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Sid": ""
+    }
+  ],
+  "Version": "2012-10-17"
+}

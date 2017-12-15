@@ -1,0 +1,4 @@
+aws_customer_gateway.corp_customer_gateway:
+    attribute: "id"
+    description: "ID of the shared corp_customer_gateway resource"
+    mock: ""

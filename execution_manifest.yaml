@@ -1,0 +1,283 @@
+---
+# This is currently a default to store horizon Aliases (see:
+# https://brewspace.jiveland.com/docs/DOC-276733) for more details.
+#
+# Current format is:
+# alias: <command line args>
+#
+
+# Governor
+gov_global: -a governor -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+
+# Sandbox
+sandbox_global: -a sandbox -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+
+####################
+# Data
+# Pipeline
+data_pipeline_global: -a data -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+data_pipeline_usw: -a data -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-west-2
+data_pipeline_use: -a data -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+data_pipeline_eu: -a data -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions eu-central-1
+data_pipeline_integ_k8s_deps_usw: -a data -e integ -n infra-pipeline -p k8s_deps -v -r administrator --regions us-west-2
+data_pipeline_integ_comp_usw: -a data -e integ -n infra-pipeline -c -v -r administrator --regions us-west-2
+data_pipeline_integ_comp_use: -a data -e integ -n infra-pipeline -c -v -r administrator --regions us-east-1
+data_pipeline_integ_comp_eu: -a data -e integ -n infra-pipeline -c -v -r administrator --regions eu-central-1
+data_pipeline_integ_k8s_usw: -a data -e integ -n infra-pipeline -p k8s -v -r administrator --regions us-west-2
+data_pipeline_test_comp_usw: -a data -e test -n infra-pipeline -c -v -r administrator --regions us-west-2
+data_pipeline_test_comp_use: -a data -e test -n infra-pipeline -c -v -r administrator --regions us-east-1
+data_pipeline_test_comp_eu: -a data -e test -n infra-pipeline -c -v -r administrator --regions eu-central-1
+data_pipeline_rel_comp_usw: -a data -e release -n infra-pipeline -c -v -r administrator --regions us-west-2
+data_pipeline_rel_comp_use: -a data -e release -n infra-pipeline -c -v -r administrator --regions us-east-1
+data_pipeline_rel_comp_eu: -a data -e release -n infra-pipeline -c -v -r administrator --regions eu-central-1
+
+# Brewprod
+data_brew_global: -a data -e infra-brewprod -n infra-brewprod -i -v -r administrator --apply_global
+data_brew_usw: -a data -e infra-brewprod -n infra-brewprod -i -v -r administrator --regions us-west-2
+data_brew_use: -a data -e infra-brewprod -n infra-brewprod -i -v -r administrator --regions us-east-1
+data_brew_eu: -a data -e infra-brewprod -n infra-brewprod -i -v -r administrator --regions eu-central-1
+data_brew_comp_usw: -a data -e brewprod -n infra-brewprod -c -v -r administrator --regions us-west-2
+data_brew_comp_use: -a data -e brewprod -n infra-brewprod -c -v -r administrator --regions us-east-1
+data_brew_comp_eu: -a data -e brewprod -n infra-brewprod -c -v -r administrator --regions eu-central-1
+
+# Prod
+data_prod_global: -a data -e infra-prod -n infra-prod -i -v -r administrator --apply_global
+data_prod_usw: -a data -e infra-prod -n infra-prod -i -v -r administrator --regions us-west-2
+data_prod_use: -a data -e infra-prod -n infra-prod -i -v -r administrator --regions us-east-1
+data_prod_eu: -a data -e infra-prod -n infra-prod -i -v -r administrator --regions eu-central-1
+data_prod_comp_usw: -a data -e prod -n infra-prod -c -v -r administrator --regions us-west-2
+data_prod_comp_use: -a data -e prod -n infra-prod -c -v -r administrator --regions us-east-1
+data_prod_comp_eu: -a data -e prod -n infra-prod -c -v -r administrator --regions eu-central-1
+
+####################
+# Microservices
+# Pipeline
+ms_pipeline_global: -a microservices -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+ms_pipeline_usw: -a microservices -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-west-2
+ms_pipeline_use: -a microservices -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+ms_pipeline_eu: -a microservices -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions eu-central-1
+ms_pipeline_dev_usw: -a microservices -e dev -n infra-pipeline -c -v -r administrator --regions us-west-2
+ms_pipeline_comp_usw: -a microservices -e pipeline -n infra-pipeline -c -v -r administrator --regions us-west-2
+ms_pipeline_comp_use: -a microservices -e pipeline -n infra-pipeline -c -v -r administrator --regions us-east-1
+ms_pipeline_comp_eu: -a microservices -e pipeline -n infra-pipeline -c -v -r administrator --regions eu-central-1
+#
+ms_pipeline_k8s_deps_usw: -a microservices -e pipeline -n infra-pipeline -p k8s_deps -v -r administrator --regions us-west-2
+ms_pipeline_k8s_deps_use: -a microservices -e pipeline -n infra-pipeline -p k8s_deps -v -r administrator --regions us-east-1
+ms_pipeline_k8s_usw: -a microservices -e pipeline -n infra-pipeline -p k8s -v -r administrator --regions us-west-2
+ms_pipeline_k8s_use: -a microservices -e pipeline -n infra-pipeline -p k8s -v -r administrator --regions us-east-1
+ms_pipeline_tardis_deps_usw: -a microservices -e pipeline -n infra-pipeline -p tardis_deps -v -r administrator --regions us-west-2
+ms_pipeline_tardis_usw: -a microservices -e pipeline -n infra-pipeline -p tardis -v -r administrator --regions us-west-2
+#
+ms_pipeline_k8s_deps_eu: -a microservices -e pipeline -n infra-pipeline -p k8s_deps -v -r administrator --regions eu-central-1
+ms_pipeline_k8s_eu: -a microservices -e pipeline -n infra-pipeline -p k8s -v -r administrator --regions eu-central-1
+ms_pipeline_tardis_deps_eu: -a microservices -e pipeline -n infra-pipeline -p tardis_deps -v -r administrator --regions eu-central-1
+ms_pipeline_tardis_eu: -a microservices -e pipeline -n infra-pipeline -p tardis -v -r administrator --regions eu-central-1
+#
+ms_pipeline_jcx_comp_usw: -a microservices -e pipeline-jcx -n infra-pipeline -c -v -r administrator --regions us-west-2
+ms_pipeline_jcx_comp_use: -a microservices -e pipeline-jcx -n infra-pipeline -c -v -r administrator --regions us-east-1
+ms_pipeline_jcx_comp_eu: -a microservices -e pipeline-jcx -n infra-pipeline -c -v -r administrator --regions eu-central-1
+ms_pipeline_jcx_k8s_deps_usw: -a microservices -e pipeline-jcx -n infra-pipeline -p k8s_deps-jcx -v -r administrator --regions us-west-2
+ms_pipeline_jcx_k8s_deps_use: -a microservices -e pipeline-jcx -n infra-pipeline -p k8s_deps-jcx -v -r administrator --regions us-east-1
+ms_pipeline_jcx_k8s_deps_eu: -a microservices -e pipeline-jcx -n infra-pipeline -p k8s_deps-jcx -v -r administrator --regions eu-central-1
+ms_pipeline_jcx_k8s_usw: -a microservices -e pipeline-jcx -n infra-pipeline -p k8s-jcx -v -r administrator --regions us-west-2
+ms_pipeline_jcx_k8s_use: -a microservices -e pipeline-jcx -n infra-pipeline -p k8s-jcx -v -r administrator --regions us-east-1
+ms_pipeline_jcx_k8s_eu: -a microservices -e pipeline-jcx -n infra-pipeline -p k8s-jcx -v -r administrator --regions eu-central-1
+ms_pipeline_id_web_usw: -a microservices -e pipeline -n infra-pipeline -p identity-web -v -r administrator --regions us-west-2
+ms_pipeline_id_usw: -a microservices -e pipeline -n infra-pipeline -p identity -v -r administrator --regions us-west-2
+ms_pipeline_jcx_usw: -a microservices -e pipeline -n infra-pipeline -p jcx -v -r jcx-administrator --regions us-west-2
+
+# Prod
+ms_prod_global: -a microservices -e infra-prod -n infra-prod -i -v -r administrator --apply_global
+ms_prod_usw: -a microservices -e infra-prod -n infra-prod -i -v -r administrator --regions us-west-2
+ms_prod_use: -a microservices -e infra-prod -n infra-prod -i -v -r administrator --regions us-east-1
+ms_prod_eu: -a microservices -e infra-prod -n infra-prod -i -v -r administrator --regions eu-central-1
+ms_prod_comp_usw: -a microservices -e prod -n infra-prod -c -v -r administrator --regions us-west-2
+ms_prod_comp_use: -a microservices -e prod -n infra-prod -c -v -r administrator --regions us-east-1
+ms_prod_comp_eu: -a microservices -e prod -n infra-prod -c -v -r administrator --regions eu-central-1
+#
+ms_prod_k8s_deps_usw: -a microservices -e prod -n infra-prod -p k8s_deps -v -r administrator --regions us-west-2
+ms_prod_k8s_usw: -a microservices -e prod -n infra-prod -p k8s -v -r administrator --regions us-west-2
+ms_prod_tardis_deps_usw: -a microservices -e prod -n infra-prod -p tardis_deps -v -r administrator --regions us-west-2
+ms_prod_tardis_usw: -a microservices -e prod -n infra-prod -p tardis -v -r administrator --regions us-west-2
+#
+ms_prod_k8s_deps_use: -a microservices -e prod -n infra-prod -p k8s_deps -v -r administrator --regions us-east-1
+ms_prod_k8s_use: -a microservices -e prod -n infra-prod -p k8s -v -r administrator --regions us-east-1
+#
+ms_prod_jcx_comp_usw: -a microservices -e prod-jcx -n infra-prod -c -v -r administrator --regions us-west-2
+ms_prod_jcx_comp_use: -a microservices -e prod-jcx -n infra-prod -c -v -r administrator --regions us-east-1
+ms_prod_jcx_k8s_deps_usw: -a microservices -e prod-jcx -n infra-prod -p k8s_deps-jcx -v -r administrator --regions us-west-2
+ms_prod_jcx_k8s_usw: -a microservices -e prod-jcx -n infra-prod -p k8s-jcx -v -r administrator --regions us-west-2
+#
+ms_prod_jcx_k8s_deps_use: -a microservices -e prod-jcx -n infra-prod -p k8s_deps-jcx -v -r administrator --regions us-east-1
+ms_prod_jcx_k8s_use: -a microservices -e prod-jcx -n infra-prod -p k8s-jcx -v -r administrator --regions us-east-1
+
+####################
+# Reco
+reco_sandbox_use: -a reco-sandbox -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+reco_sandbox_comp_use: -a reco-sandbox -e pipeline -n infra-pipeline -c -v -r administrator --regions us-east-1
+
+# Pipeline
+reco_pipeline_global: -a reco -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+reco_pipeline_usw: -a reco -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-west-2
+reco_pipeline_use: -a reco -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+reco_pipeline_eu: -a reco -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions eu-central-1
+reco_pipeline_comp_usw: -a reco -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-west-2
+reco_pipeline_comp_use: -a reco -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+reco_pipeline_comp_eu: -a reco -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions eu-central-1
+reco_pipeline_integ_comp_usw: -a reco -e integ -n infra-pipeline -c -v -r administrator --regions us-west-2
+reco_pipeline_integ_comp_use: -a reco -e integ -n infra-pipeline -c -v -r administrator --regions us-east-1
+reco_pipeline_integ_comp_eu: -a reco -e integ -n infra-pipeline -c -v -r administrator --regions eu-central-1
+reco_pipeline_rel_comp_usw: -a reco -e release -n infra-pipeline -c -v -r administrator --regions us-west-2
+reco_pipeline_rel_comp_use: -a reco -e release -n infra-pipeline -c -v -r administrator --regions us-east-1
+reco_pipeline_rel_comp_eu: -a reco -e release -n infra-pipeline -c -v -r administrator --regions eu-central-1
+reco_pipeline_test_comp_usw: -a reco -e test -n infra-pipeline -c -v -r administrator --regions us-west-2
+reco_pipeline_test_comp_use: -a reco -e test -n infra-pipeline -c -v -r administrator --regions us-east-1
+reco_pipeline_test_comp_eu: -a reco -e test -n infra-pipeline -c -v -r administrator --regions eu-central-1
+reco_pipeline_test_upena_s3_use: -a reco -e test -n infra-pipeline -p upena_s3 -v -r administrator --regions us-east-1
+reco_pipeline_test_upena_api_use: -a reco -e test -n infra-pipeline -p upena_api -v -r administrator --regions us-east-1
+reco_pipeline_test_upena_miru_use: -a reco -e test -n infra-pipeline -p upena_miru -v -r administrator --regions us-east-1
+reco_pipeline_test_upena_data_use: -a reco -e test -n infra-pipeline -p upena_data -v -r administrator --regions us-east-1
+
+# Brewprod
+reco_brew_global: -a reco -e infra-brewprod -n infra-brewprod -i -v -r administrator --apply_global
+reco_brew_usw: -a reco -e infra-brewprod -n infra-brewprod -i -v -r administrator --regions us-west-2
+reco_brew_use: -a reco -e infra-brewprod -n infra-brewprod -i -v -r administrator --regions us-east-1
+reco_brew_eu: -a reco -e infra-brewprod -n infra-brewprod -i -v -r administrator --regions eu-central-1
+reco_brew_comp_usw: -a reco -e brewprod -n infra-brewprod -c -v -r administrator --regions us-west-2
+reco_brew_comp_use: -a reco -e brewprod -n infra-brewprod -c -v -r administrator --regions us-east-1
+reco_brew_comp_eu: -a reco -e brewprod -n infra-brewprod -c -v -r administrator --regions eu-central-1
+reco_brew_upena_s3_use: -a reco -e brewprod -n infra-brewprod -p upena_s3 -v -r administrator --regions us-east-1
+reco_brew_upena_api_use: -a reco -e brewprod -n infra-brewprod -p upena_api -v -r administrator --regions us-east-1
+reco_brew_upena_miru_use: -a reco -e brewprod -n infra-brewprod -p upena_miru -v -r administrator --regions us-east-1
+reco_brew_upena_data_use: -a reco -e brewprod -n infra-brewprod -p upena_data -v -r administrator --regions us-east-1
+
+# Prod
+reco_prod_global: -a reco -e infra-prod -n infra-prod -i -v -r administrator --apply_global
+reco_prod_usw: -a reco -e infra-prod -n infra-prod -i -v -r administrator --regions us-west-2
+reco_prod_use: -a reco -e infra-prod -n infra-prod -i -v -r administrator --regions us-east-1
+reco_prod_eu: -a reco -e infra-prod -n infra-prod -i -v -r administrator --regions eu-central-1
+reco_prod_comp_usw: -a reco -e prod -n infra-prod -c -v -r administrator --regions us-west-2
+reco_prod_comp_use: -a reco -e prod -n infra-prod -c -v -r administrator --regions us-east-1
+reco_prod_comp_eu: -a reco -e prod -n infra-prod -c -v -r administrator --regions eu-central-1
+reco_prod_upena_s3_use: -a reco -e prod -n infra-prod -p upena_s3 -v -r administrator --regions us-east-1
+reco_prod_upena_api_use: -a reco -e prod -n infra-prod -p upena_api -v -r administrator --regions us-east-1
+reco_prod_upena_miru_use: -a reco -e prod -n infra-prod -p upena_miru -v -r administrator --regions us-east-1
+reco_prod_upena_data_use: -a reco -e prod -n infra-prod -p upena_data -v -r administrator --regions us-east-1
+reco_prod_upena_wal_use: -a reco -e prod -n infra-prod -p upena_wal -v -r administrator --regions us-east-1
+reco_prod_upena_reader_use: -a reco -e prod -n infra-prod -p upena_reader -v -r administrator --regions us-east-1
+
+####################
+# PS
+# Pipeline
+ps_pipeline_global: -a ps -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+ps_pipeline_usw: -a ps -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-west-2
+ps_pipeline_use: -a ps -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+ps_pipeline_eu: -a ps -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions eu-central-1
+ps_pipeline_test_comp_usw: -a ps -e test -n infra-pipeline -c -r administrator -v --regions us-west-2
+ps_pipeline_test_comp_use: -a ps -e test -n infra-pipeline -c -r administrator -v --regions us-east-1
+ps_pipeline_test_comp_eu: -a ps -e test -n infra-pipeline -c -r administrator -v --regions eu-central-1
+ps_pipeline_integ_comp_usw: -a ps -e integ -n infra-pipeline -c -r administrator -v --regions us-west-2
+ps_pipeline_integ_comp_use: -a ps -e integ -n infra-pipeline -c -r administrator -v --regions us-east-1
+ps_pipeline_integ_comp_eu: -a ps -e integ -n infra-pipeline -c -r administrator -v --regions eu-central-1
+ps_pipeline_rel_comp_usw: -a ps -e release -n infra-pipeline -c -r administrator -v --regions us-west-2
+ps_pipeline_rel_comp_use: -a ps -e release -n infra-pipeline -c -r administrator -v --regions us-east-1
+ps_pipeline_rel_comp_eu: -a ps -e release -n infra-pipeline -c -r administrator -v --regions eu-central-1
+pipeline_molecule_s3_usw: -a ps -e test -n infra-pipeline -p molecule-s3 -r poweruser -v --regions us-west-2
+pipeline_molecule_s3_use: -a ps -e test -n infra-pipeline -p molecule-s3 -r poweruser -v --regions us-east-1
+pipeline_molecule_test_usw: -a ps -e test -n infra-pipeline -p molecule-test -r poweruser -v --regions us-west-2
+pipeline_molecule_test_use: -a ps -e test -n infra-pipeline -p molecule-test -r poweruser -v --regions us-east-1
+pipeline_molecule_prod_usw: -a ps -e test -n infra-pipeline -p molecule-prod -r poweruser -v --regions us-west-2
+pipeline_molecule_prod_use: -a ps -e test -n infra-pipeline -p molecule-prod -r poweruser -v --regions us-east-1
+
+# Prod
+ps_prod_global: -a ps -e infra-prod -n infra-prod -r administrator -i -v --apply_global
+ps_prod_usw: -a ps -e infra-prod -n infra-prod -r administrator -i -v --regions us-west-2
+ps_prod_use: -a ps -e infra-prod -n infra-prod -r administrator -i -v --regions us-east-1
+ps_prod_eu: -a ps -e infra-prod -n infra-prod -r administrator -i -v --regions eu-central-1
+ps_prod_uat_comp_usw: -a ps -e uat -n infra-prod -c -r administrator -v --regions us-west-2
+ps_prod_uat_comp_use: -a ps -e uat -n infra-prod -c -r administrator -v --regions us-east-1
+ps_prod_uat_comp_eu: -a ps -e uat -n infra-prod -c -r administrator -v --regions eu-central-1
+ps_prod_comp_usw: -a ps -e prod -n infra-prod -c -r administrator -v --regions us-west-2
+ps_prod_comp_use: -a ps -e prod -n infra-prod -c -r administrator -v --regions us-east-1
+ps_prod_comp_eu: -a ps -e prod -n infra-prod -c -r administrator -v --regions eu-central-1
+prod_molecule_s3_usw: -a ps -e prod -n infra-prod -p molecule-s3 -r poweruser -v --regions us-west-2
+uat_molecule_usw: -a ps -e uat -n infra-prod -p molecule-test -r poweruser -v --regions us-west-2
+prod_molecule_usw: -a ps -e prod -n infra-prod -p molecule-prod -r poweruser -v --regions us-west-2
+uat_molecule_eu: -a ps -e uat -n infra-prod -p molecule-test -r poweruser -v --regions eu-central-1
+prod_molecule_eu: -a ps -e prod -n infra-prod -p molecule-prod -r poweruser -v --regions eu-central-1
+
+####################
+# Infra
+# Pipeline
+infra_pipeline_global: -a infra -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+infra_pipeline_usw: -a infra -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-west-2
+infra_pipeline_use: -a infra -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+infra_pipeline_eu: -a infra -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions eu-central-1
+infra_pipeline_comp_usw: -a infra -e pipeline -n infra-pipeline -c -r administrator -v --regions us-west-2
+infra_pipeline_comp_use: -a infra -e pipeline -n infra-pipeline -c -r administrator -v --regions us-east-1
+infra_pipeline_comp_eu: -a infra -e pipeline -n infra-pipeline -c -r administrator -v --regions eu-central-1
+infra_pipeline_k8s_deps_usw: -a infra -e pipeline -n infra-pipeline -p k8s_deps -r administrator -v --regions us-west-2
+infra_pipeline_k8s_deps_use: -a infra -e pipeline -n infra-pipeline -p k8s_deps -r administrator -v --regions us-east-1
+infra_pipeline_k8s_usw: -a infra -e pipeline -n infra-pipeline -p k8s -r administrator -v --regions us-west-2
+infra_pipeline_k8s_use: -a infra -e pipeline -n infra-pipeline -p k8s -r administrator -v --regions us-east-1
+infra_pipeline_tardis_usw: -a infra -e pipeline -n infra-pipeline -p tardis -r administrator -v --regions us-west-2
+infra_pipeline_tardis_deps_usw: -a infra -e pipeline -n infra-pipeline -p tardis_deps -r administrator -v --regions us-west-2
+dcp_comp_usw: -a infra -e pipeline-dcp -n infra-pipeline -c -r administrator -v --regions us-west-2
+dcp_k8s_deps_usw: -a infra -e pipeline-dcp -n infra-pipeline -p k8s_deps-dcp -r administrator -v --regions us-west-2
+dcp_k8s_usw: -a infra -e pipeline-dcp -n infra-pipeline -p k8s-dcp -r administrator -v --regions us-west-2
+bauron_k8s_deps_usw: -a infra -e pipeline-bauron -n infra-pipeline -p k8s_deps-bauron -v -r administrator --regions us-west-2
+bauron_k8s_usw: -a infra -e pipeline-bauron -n infra-pipeline -p k8s-bauron -v -r administrator --regions us-west-2
+bauron_comp_usw: -a infra -e pipeline-bauron -n infra-pipeline -c -r administrator -v --regions us-west-2
+sam_comp_usw: -a infra -e pipeline-sam -n infra-pipeline -c -r administrator -v --regions us-west-2
+sam_k8s_deps_usw: -a infra -e pipeline-sam -n infra-pipeline -p k8s_deps-sam -r administrator -v --regions us-west-2
+sam_k8s_usw: -a infra -e pipeline-sam -n infra-pipeline -p k8s-sam -r administrator -v --regions us-west-2
+joe_comp_usw: -a infra -e pipeline-joe -n infra-pipeline -c -r administrator -v --regions us-west-2
+joe_k8s_deps_usw: -a infra -e pipeline-joe -n infra-pipeline -p k8s_deps-joe -r administrator -v --regions us-west-2
+joe_tardis_usw: -a infra -e pipeline-joe -n infra-pipeline -p tardis-joe -r administrator -v --regions us-west-2
+joe_tardis_deps_usw: -a infra -e pipeline-joe -n infra-pipeline -p tardis_deps-joe -r administrator -v --regions us-west-2
+joe_k8s_usw: -a infra -e pipeline-joe -n infra-pipeline -p k8s-joe -r administrator -v --regions us-west-2
+premerge_test_usw: -a infra -e pipeline -n infra-pipeline -p k8s-premerge -v --regions us-west-2
+premerge_test_deps_usw: -a infra -e pipeline -n infra-pipeline -p k8s_deps-premerge -r administrator -v --regions us-west-2
+pete_comp_usw: -a infra -e pipeline-pete -n infra-pipeline -c -r administrator -v --regions us-west-2
+pete_k8s_deps_usw: -a infra -e pipeline-pete -n infra-pipeline -p k8s_deps-pete -v -r administrator --regions us-west-2
+sunnyd_comp_usw: -a infra -e pipeline-sunnyd -n infra-pipeline -c -r administrator -v --regions us-west-2
+sunnyd_k8s_deps_usw: -a infra -e pipeline-sunnyd -n infra-pipeline -p k8s_deps-sunnyd -r administrator -v --regions us-west-2
+sunnyd_k8s_usw: -a infra -e pipeline-sunnyd -n infra-pipeline -p k8s-sunnyd -r administrator -v --regions us-west-2
+devopsil_comp_usw: -a infra -e pipeline-devopsil -n infra-pipeline -c -r administrator -v --regions us-west-2
+devopsil_k8s_deps_usw: -a infra -e pipeline-devopsil -n infra-pipeline -p k8s_deps-devopsil -r administrator -v --regions us-west-2
+devopsil_k8s_usw: -a infra -e pipeline-devopsil -n infra-pipeline -p k8s-devopsil -r administrator -v --regions us-west-2
+
+# Prod
+infra_prod_global: -a infra -e infra-prod -n infra-prod -i -v -r administrator --apply_global
+infra_prod_usw: -a infra -e infra-prod -n infra-prod -i -v -r administrator --regions us-west-2
+infra_prod_use: -a infra -e infra-prod -n infra-prod -i -v -r administrator --regions us-east-1
+infra_prod_eu: -a infra -e infra-prod -n infra-prod -i -v -r administrator --regions eu-central-1
+infra_prod_comp_usw: -a infra -e prod -n infra-prod -c -r administrator -v --regions us-west-2
+infra_prod_comp_use: -a infra -e prod -n infra-prod -c -r administrator -v --regions us-east-1
+infra_prod_comp_eu: -a infra -e prod -n infra-prod -c -r administrator -v --regions eu-central-1
+
+####################
+# Partner Collab
+# Pipeline
+partnercollab_global: -a partnercollaboration -e infra-prod -n infra-prod -i -v -r administrator --apply_global
+
+####################
+# Aurea POC
+aurea_poc_global: -a jivek8 -e poc -n poc -i -v --apply_global
+aurea_poc_infra: -a jivek8 -e poc -n poc -i -v --regions us-east-1
+aurea_poc_comp: -a jivek8 -e poc -n poc -c -v --regions us-east-1
+aurea_poc_lemur: -a jivek8 -e poc -n poc -p lemur -v --regions us-east-1
+aurea_poc_k8s_deps: -a jivek8 -e poc -n poc -p k8s_deps -v --regions us-east-1
+aurea_poc_k8s: -a jivek8 -e poc -n poc -p k8s -v --regions us-east-1
+
+####################
+# Hosting
+# Pipeline
+hosting_pipeline_global: -a hosting -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global
+hosting_pipeline_use: -a hosting -e infra-pipeline -n infra-pipeline -i -v -r administrator --regions us-east-1
+hosting_pipeline_comp_use: -a hosting -e pipeline -n infra-pipeline -c -r administrator -v --regions us-east-1
+
+####################
+# Bikou
+# global only
+bikou_global: -a bikou -e infra-pipeline -n infra-pipeline -i -v -r administrator --apply_global

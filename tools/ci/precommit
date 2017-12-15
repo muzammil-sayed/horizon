@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+
+set -eu
+
+declare -r build_lib="tools/ci/lib/build-common.sh"
+if [ -e "$build_lib" ]; then
+  source "$build_lib"
+else
+  echo "ERROR Could not find $(pwd)/${build_lib}" >&2
+  exit 1
+fi
+
+VE_BIN='/usr/bin/virtualenv-2.7'
+VE_DIR='.virtualenv'
+
+function git_parent_branch() {
+  local -r script="$(basename $0)"
+  if echo "$script" | grep -q '[a-z]\-[a-z]'; then
+    echo "${script##*-}"
+  else
+    echo "develop"
+  fi
+}
+
+function git_changed_files() {
+  local -r subdir=$1
+  local -r filter=${2:-AM}
+
+  local -r parent_branch="$(git_parent_branch)"
+
+  "${GIT_BIN}" fetch -q "${GIT_REMOTE}" "${parent_branch}"
+  "${GIT_BIN}" diff-index --diff-filter="${filter}" --name-only --cached "${GIT_REMOTE}/${parent_branch}" -- "${subdir}"
+}
+
+function setup_python() {
+  banner "Setup Python Environment"
+
+  if [ -x "${VE_BIN}" ]; then
+    "${VE_BIN}" "${VE_DIR}"
+    if [ -f "requirements.txt" ]; then
+      echo "installing dependencies from requirements.txt"
+      "${VE_DIR}"/bin/pip install -q -r requirements.txt
+    fi
+    set +u
+    source "${VE_DIR}"/bin/activate
+    set -u
+  else
+    echo "Couldn't find executable for virtualenv (${VE_BIN}), results may vary."
+  fi
+}
+
+function check_python_syntax() {
+  banner "Check Python Syntax"
+
+  local -a changed_python_files=($(git_changed_files "." | grep -e "\.py$"))
+
+  if [ "${#changed_python_files[@]}" -gt 0 ]; then
+    echo "${changed_python_files[@]}" | xargs python -m py_compile
+  else
+    echo "No files changed"
+  fi
+}
+
+function check_python_pep8() {
+  banner "Check Python PEP8 compliance"
+
+  local -a changed_python_files=($(git_changed_files "." | grep -e "\.py$"))
+
+  if [ "${#changed_python_files[@]}" -gt 0 ]; then
+    echo "${changed_python_files[@]}" | xargs pep8
+  else
+    echo "No files changed"
+  fi
+}
+
+function check_pylint() {
+  banner "Analyze Python in repo with pylint"
+
+  pylint --rcfile=./tools/ci/pylint.cfg $(find . -maxdepth 2 -name "*.py" -print) > ./tools/ci/pylint.log || true
+
+  echo "All Python files within repo analyzed!"
+}
+
+function check_terraform_syntax() {
+  banner "Check Terraform Syntax"
+
+  local -a changed_terraform_files=($(git_changed_files "." | grep -e "\.tf$"))
+  local -r stub_dir="env/stub"
+  local -a var_files=(
+    "terraform.tfvars"
+    "infra_vars.tf"
+    "global_vars.tf"
+  )
+
+  # stub out the dynamic variables
+  bin/build-stub-vars.py
+
+  if [ "${#changed_terraform_files[@]}" -gt 0 ]; then
+    for tf_file in "${changed_terraform_files[@]}"; do
+      tf_dir="$(dirname "${tf_file}")"
+      echo "Checking ${tf_dir}"
+
+      for var_file in "${var_files[@]}"; do
+        cp "${stub_dir}/${var_file}" "${tf_dir}"
+      done
+
+      pushd "${tf_dir}" >/dev/null
+      terraform validate -no-color
+      popd >/dev/null
+
+      # clean up does not occur on terraform error
+      for var_file in "${var_files[@]}"; do
+        rm "${tf_dir}/${var_file}"
+      done
+    done
+  else
+    echo "No terraform files changed"
+  fi
+}
+
+function build_complete() {
+  banner "All checks passed"
+}
+
+setup_python
+check_python_syntax
+check_python_pep8
+check_pylint
+# NOTE: terraform version on the build-hosts is tracked via Puppet
+check_terraform_syntax
+build_complete

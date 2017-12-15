@@ -1,0 +1,1 @@
+../common/ebs-attach-and-secrets-perms.tf

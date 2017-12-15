@@ -1,0 +1,73 @@
+# scm configs
+- scm:
+    name: precommit-develop
+    scm:
+      - git:
+          url: ssh://git@stash.jiveland.com/comsrv/horizon.git
+          credentials-id: aa954545-ff1d-4b63-9e67-50f5cde65fba
+          branches:
+            - '**/feature/*'
+- scm:
+    name: precommit-master
+    scm:
+      - git:
+          url: ssh://git@stash.jiveland.com/comsrv/horizon.git
+          credentials-id: aa954545-ff1d-4b63-9e67-50f5cde65fba
+          branches:
+            - '**/hotfix/*'
+
+# general job defaults
+- defaults:
+    name: global
+    project-type: freestyle
+    node: generic
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+    wrappers:
+      - timeout:
+          timeout: 150
+          timeout-var: BUILD_TIMEOUT
+          type: absolute
+      - timestamps
+# don't enable notifications just yet
+#    publishers:
+#      - jive-notifier
+
+# notify https://brewspace.jiveland.com/groups/techops-cicd-notifications of failures
+- publisher:
+    name: jive-notifier
+    publishers:
+      - jive:
+          content-type: 700
+          content-id: 13510
+          notification-verbosity: FAIL_AND_BACK_TO_NORMAL
+          failed-test: false
+          scm-changes: false
+          scm-details: false
+
+# notify stash
+- publisher:
+    name: stash-notifier
+    publishers:
+      - conditional-publisher:
+          - condition-kind: always
+            action:
+              - stash:
+                  url: https://stash.jiveland.com
+                  password: ''
+                  credentials-id: '9b02c718-b873-4d8c-a27b-801de5e4d0af'
+
+# precommit
+- job:
+    name: iaas-horizon-precommit-develop
+    node: baremetal
+    scm:
+      - precommit-develop
+    triggers:
+      - pollscm:
+          cron: '@yearly'
+    builders:
+      - shell: ./tools/ci/precommit-develop
+    publishers:
+      - stash-notifier

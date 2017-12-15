@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+source "$(dirname ${BASH_SOURCE:-$0})/../../../../bin/lib/j-env-common.sh"
+trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
+
+function setup_terraform() {
+  brew_install_or_upgrade 'terraform'
+}
+
+setup_terraform

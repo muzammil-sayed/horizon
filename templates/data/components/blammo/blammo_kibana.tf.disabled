@@ -1,0 +1,71 @@
+resource "aws_security_group_rule" "kibana_port_5601" {
+  type              = "ingress"
+  from_port         = 5601
+  to_port           = 5601
+  protocol          = "tcp"
+  cidr_blocks       = ["10.0.0.0/8"]
+  security_group_id = "${aws_security_group.kibana_ports.id}"
+}
+
+resource "aws_security_group_rule" "kibana_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["10.0.0.0/8"]
+  security_group_id = "${aws_security_group.kibana_ports.id}"
+}
+
+resource "aws_security_group" "kibana_ports" {
+  name        = "${var.jive_service}_kibana_ports"
+  description = "${var.jive_service_short_name} kibana FTW"
+  vpc_id      = "${var.aws_vpc_main}"
+}
+
+data "template_file" "kibana_bootstrap" {
+  template = "${file("${path.module}/bootstrap.sh")}"
+}
+
+resource "aws_instance" "blammo_kibana" {
+  availability_zone           = "us-west-2a"
+  ami                         = "${var.ami_id}"
+  instance_type               = "${var.kibana_instance_size}"
+  iam_instance_profile        = "ebs-attach-profile"
+  vpc_security_group_ids      = ["${var.aws_security_group_env_instance}", "${aws_security_group.kibana_ports.id}"]
+  subnet_id                   = "${var.uswesta_vpc_subnet_id}"
+  associate_public_ip_address = false
+  ebs_optimized               = false
+  key_name                    = "${var.ec2_key_name}"
+  user_data                   = "${data.template_file.kibana_bootstrap.rendered}"
+
+  ephemeral_block_device {
+    device_name = "/dev/sdb"
+    virtual_name = "ephemeral0"
+  }
+
+  ephemeral_block_device {
+    device_name = "/dev/sdc"
+    virtual_name = "ephemeral1"
+  }
+
+  tags {
+    "Name"              = "blammo-kibana"
+    "pipeline_phase"    = "${var.env}"
+    "service_component" = "kibana"
+    "jive_service"      = "${var.jive_service}"
+    "region"            = "${var.region}"
+    "sla"               = "${var.sla}"
+    "account_name"      = "${var.aws_account_short_name}"
+    "role"              = "master"
+  }
+
+}
+
+resource "aws_route53_record" "blammo_kibana" {
+  zone_id = "${var.route53_public_data_zone_id}"
+  name = "blammo-kibana"
+  type = "A"
+  ttl = "60"
+  records = ["${aws_instance.blammo_kibana.private_ip}"]
+}
+

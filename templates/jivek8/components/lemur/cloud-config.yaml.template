@@ -1,0 +1,76 @@
+#cloud-config
+coreos:
+  units:
+  - name: bootstrap.service
+    command: start
+    content: |
+      [Unit]
+      Requires=early-docker.service
+      After=early-docker.service
+      Description=Bootstraps the node
+      [Service]
+      Environment="DOCKER_HOST=unix:///var/run/early-docker.sock"
+      Type=oneshot
+      RemainAfterExit=yes
+      ExecStart=/root/bootstrap.sh
+  - name: settimezone.service
+    command: start
+    content: |
+      [Unit]
+      Description=Set the timezone
+      [Service]
+      ExecStart=/usr/bin/timedatectl set-timezone UTC
+      RemainAfterExit=yes
+      Type=oneshot
+  update:
+    reboot-strategy: off
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdUn7MngzRWLusJ+9S2MSibbJjkxV0fa5D6fUKJnGuYHxgL3vpMi+TLWRUIFv9tmBIxard8nS4/mNu6P0ENm5LmkAYPJngEMbCoQmpk89tbQIrlZrhr5FffP3fJfxzahEtYjEtNuBQuuMwrXN3hvuehVGWEu1lFG6WLYnejL0au2L4CJhCoV2g+b/uqTjsFVHhbGWvuazYL9SJmH2mWqEnbj2tj7goemU88bycisrMIvpKVWhu02KM2FUHgPwtoENi909LTpiD/y+3FzBwa7cpMNjmTmrzPbJTZ7gNNzSpPWHtCejE/B06+7lxSzbeRQP6q1Xb++bcVWODvh6qCb4b
+write_files:
+  - path: /root/bootstrap.sh
+    permissions: 0755
+    content: |
+      #!/usr/bin/bash
+      #
+      if [ -f /etc/coreos/update.conf ] ; then
+        rm  /etc/coreos/update.conf
+      fi
+
+      ARTIFACT_BOOTSTRAP_PREFIX=ansible-coreos-bootstrap
+      ARTIFACT_PREFIX=ansible-coreos
+      BUCKET_NAME=jive-ansible-coreos-vault-jivek8-aws
+
+      ansible_build_artifact="$${ARTIFACT_PREFIX}-lemur"
+
+      declare -r aws_cli_docker_image=anigeo/awscli
+
+      /usr/bin/wget https://s3-us-west-2.amazonaws.com/$${BUCKET_NAME}/$${ansible_build_artifact}.tar.gz -O /tmp/$${ARTIFACT_PREFIX}.tar.gz
+      if [ $? -ne 0 ] || [ ! -s /tmp/$${ARTIFACT_PREFIX}.tar.gz ] ; then
+        # if the wget failed or the file is 0 bytes, then pull it via API
+        echo "wget failed, running AWS CLI to get file..."
+        docker run --rm --name aws-cli-s3 \
+          -v /tmp:/tmp \
+          --net=host \
+          $aws_cli_docker_image  s3api get-object --bucket $${BUCKET_NAME} --key $${ansible_build_artifact}.tar.gz /tmp/$${ARTIFACT_PREFIX}.tar.gz
+      fi
+      tar -xzf /tmp/$${ARTIFACT_PREFIX}.tar.gz -C /srv
+
+      chmod +x /srv/ansible-coreos/inventory_ec2/ec2.py
+      bash -vx /srv/ansible-coreos/bin/run-ansible-container.sh
+
+      exit 0
+  - path: /etc/hosts
+    permissions: 0644
+    content: |
+      10.160.4.127 docker.phx1.jivehosted.com
+      10.160.70.25 pulp-slave
+  - path: /root/.dockercfg
+    permissions: 0600
+    owner: core
+    content: |
+        {
+            "https://reg.miru.io/v1/": {
+                "email": "",
+                "auth": "ZWNzOmJbMyZAV24jUTRzSUgsPy5aZjZBdEhFNmJjVi0hLDc="
+            }
+        }

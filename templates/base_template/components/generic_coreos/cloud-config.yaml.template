@@ -1,0 +1,16 @@
+#cloud-config
+coreos:
+  units:
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the timezone
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone UTC
+        RemainAfterExit=yes
+        Type=oneshot
+update:
+    reboot-strategy: off
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdUn7MngzRWLusJ+9S2MSibbJjkxV0fa5D6fUKJnGuYHxgL3vpMi+TLWRUIFv9tmBIxard8nS4/mNu6P0ENm5LmkAYPJngEMbCoQmpk89tbQIrlZrhr5FffP3fJfxzahEtYjEtNuBQuuMwrXN3hvuehVGWEu1lFG6WLYnejL0au2L4CJhCoV2g+b/uqTjsFVHhbGWvuazYL9SJmH2mWqEnbj2tj7goemU88bycisrMIvpKVWhu02KM2FUHgPwtoENi909LTpiD/y+3FzBwa7cpMNjmTmrzPbJTZ7gNNzSpPWHtCejE/B06+7lxSzbeRQP6q1Xb++bcVWODvh6qCb4b

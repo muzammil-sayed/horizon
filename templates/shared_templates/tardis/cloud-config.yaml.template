@@ -1,0 +1,81 @@
+#cloud-config
+coreos:
+  units:
+    - name: bootstrap.service
+      command: start
+      content: |
+        [Unit]
+        Requires=early-docker.service
+        After=early-docker.service
+        Description=Bootstraps the node
+        [Service]
+        Environment="DOCKER_HOST=unix:///var/run/early-docker.sock"
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/root/bootstrap.sh
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the timezone
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone UTC
+        RemainAfterExit=yes
+        Type=oneshot
+update:
+    reboot-strategy: off
+ssh_authorized_keys:
+  - ${COREOS_AUTHKEY}
+write_files:
+  - path: /etc/hosts
+    permissions: 0644
+    content: |
+      ${DOCKER_REGISTRY}
+      ${PHX_PULP}
+write_files:
+  - path: /root/parse_manifest.sh
+    permissions: 0755
+    content: |
+      #!/usr/bin/bash
+      jq -c '.clusters[] | select(.clusterName == "${KubernetesCluster}") | .ansibleImageVersion' /tmp/cluster_manifest.json
+write_files:
+  - path: /root/pam_workaround.sh
+    permissions: 0755
+    content: |
+      #!/usr/bin/bash
+      if [[ -d /lib/pam.d ]]; then
+        rsync -a /lib/pam.d/ /etc/pam.d/
+        sed -i '/pam_systemd.so/d' /etc/pam.d/*
+        sed -i '/pam_nologin.so/d' /etc/pam.d/*
+      fi
+write_files:
+  - path: /root/bootstrap.sh
+    permissions: 0755
+    content: |
+      #!/usr/bin/bash
+      #
+      if [ -f /etc/coreos/update.conf ] ; then
+        rm  /etc/coreos/update.conf
+      fi
+
+      declare -r ansible_bucket=${ANSIBLE_BUCKET}
+
+      # Get cluster manifest from S3 bucket
+      curl -XGET -s \
+      --retry 3 \
+      --retry-delay 5 \
+      $${ansible_bucket}/cluster_manifest.json \
+      --output /tmp/cluster_manifest.json
+
+      # Get ansible-coreos bootstrap script from S3 bucket
+      curl -XGET -s \
+      --retry 3 \
+      --retry-delay 5 \
+      $${ansible_bucket}/run-ansible-container.sh \
+      --output /tmp/run-ansible-container.sh
+
+      declare -r docker_image=$$(bash /root/parse_manifest.sh | sed 's/"//g')
+      bash -vx /root/pam_workaround.sh
+      bash -vx /tmp/run-ansible-container.sh $${docker_image}
+
+      exit 0

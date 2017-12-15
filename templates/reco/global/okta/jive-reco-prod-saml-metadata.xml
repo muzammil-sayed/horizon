@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="http://www.okta.com/exk17lv0zy9YLqDUF1d8"><md:IDPSSODescriptor WantAuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIDmDCCAoCgAwIBAgIGAUtBVtzPMA0GCSqGSIb3DQEBBQUAMIGMMQswCQYDVQQGEwJVUzETMBEG
+A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU
+MBIGA1UECwwLU1NPUHJvdmlkZXIxDTALBgNVBAMMBGppdmUxHDAaBgkqhkiG9w0BCQEWDWluZm9A
+b2t0YS5jb20wHhcNMTUwMTMxMTg1MjA2WhcNNDUwMTMxMTg1MzA2WjCBjDELMAkGA1UEBhMCVVMx
+EzARBgNVBAgMCkNhbGlmb3JuaWExFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28xDTALBgNVBAoMBE9r
+dGExFDASBgNVBAsMC1NTT1Byb3ZpZGVyMQ0wCwYDVQQDDARqaXZlMRwwGgYJKoZIhvcNAQkBFg1p
+bmZvQG9rdGEuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvyFTFg6xXPgRRcx6
+GmUkVMo/l2QMLWZLBSQtQWQigQ/ionR0uYH2/v4iJwDL8aEBfeX40D8wpFJYn0vEiS40G7PARQQd
+4vgUuE1BvqVt+ytKgKb4sEOaP6IIvfyAGsU2s4+bzmSOJM916el6bMAUzLyftTpoyMWbC2eVrISX
+370FErvfjUFWPE4TK7vYR5AkkYp/M/dfTlLtf37O5lURgLqGvvWTqvQ0iCR8XXDuqE+lp8+3OPXZ
+w9SkEZEs66YFAE8gLdConUK/8jxUTxYoyBzvGt/b2gVylvTUl3r4X+bLOKiIYdO4i1OP5QmzDQ1m
+MTUkV6DynoB6wrOA9mFKuwIDAQABMA0GCSqGSIb3DQEBBQUAA4IBAQAacNdkFlxyHczbm8CHZT58
+TyT75aZ6utkOt971bnI7i/pNJ2lazOAaUjTVhHehyZLU8vRK+QVduaWirjOh/ZChgLit4Hn5Q6j8
+DCtxf7GXtsWcbGzjMyqZqshZY+Oop7RkwCuAt10xsZiDzhODqjUut87Smj24Rj/xNMQXzY4wjG0n
+JyEEaTeNbxIeNvbY/2szB96hLVPUxYD5pgGxNjKlM5SCmN/QhUuKFVgnQ8sMPgEKbAd7Dw1vf/RF
+Xg9+0K94NjRVjZNFDLtw/HHQoN2jgtXLXsPPIKCkUEH1p16vCixfGdpPbgLUSA3th2d5oRRUHPUi
+Gy84znavIOH68EYt</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://jive.okta.com/app/amazon_aws/exk17lv0zy9YLqDUF1d8/sso/saml"/><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://jive.okta.com/app/amazon_aws/exk17lv0zy9YLqDUF1d8/sso/saml"/></md:IDPSSODescriptor></md:EntityDescriptor>

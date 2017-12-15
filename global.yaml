@@ -1,0 +1,7 @@
+aws_iam_instance_profile.ansible:
+    attribute: "id"
+    description: "ID for shared Ansible role"
+
+aws_iam_instance_profile.eni-attach:
+    attribute: "id"
+    description: "ID for shared ENI attach role"

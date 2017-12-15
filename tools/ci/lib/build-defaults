@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Defaults for <repo-root>/BUILD_DATA
+#
+# Example required content for BUILD_DATA file:
+#
+#   declare -a INCLUDE_FILES=(file1 path/to/file2 dir1)
+#   ARTIFACT="my-artifact"
+#
+# Example optional content for BUILD_DATA file:
+#   if [ "$BRANCH" == "master" ]; then
+#     REPO="releases"
+#   else
+#     REPO="candidates"
+#   fi
+#   VERSION="$(jive_version)"
+#   GROUP="com.jivesoftware.techops"
+#   ARTIFACT_FILE="${ARTIFACT}-${VERSION}.tar.gz"
+#   NEXUS_REPO="http://nexus-int.eng.jiveland.com/content/repositories/${REPO}"
+
+source BUILD_DATA
+
+declare -r GIT_BRANCH="$(git_current_branch)"
+
+declare -a INCLUDE_FILES=${INCLUDE_FILES[*]}
+declare -r ARTIFACT=$ARTIFACT
+
+if [ "$GIT_BRANCH" == "master" ]; then
+  declare -r REPO="${REPO:-releases}"
+else
+  declare -r REPO="${REPO:-candidates}"
+fi
+declare -r VERSION="${VERSION:-$(jive_version)}"
+declare -r GROUP="${GROUP:-com.jivesoftware.techops}"
+declare -r ARTIFACT_FILE="${ARTIFACT_FILE:-${ARTIFACT}-${VERSION}.tar.gz}"
+declare -r NEXUS_REPO="${NEXUS_REPO:-http://nexus-int.eng.jiveland.com/content/repositories/${REPO}}"

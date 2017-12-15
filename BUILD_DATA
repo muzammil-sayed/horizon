@@ -1,0 +1,2 @@
+declare -a INCLUDE_FILES=(bin horizon)
+ARTIFACT="horizon"
